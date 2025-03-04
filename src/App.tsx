@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Upload } from 'lucide-react';
-import ImageProcessor from './ImageProcessor';
+import axios from 'axios';
 
 function App() {
   const [originalImage, setOriginalImage] = useState<string | null>(null);
@@ -50,7 +50,7 @@ function App() {
     reader.onload = (event) => {
       if (event.target?.result) {
         setOriginalImage(event.target.result as string);
-        setNailAreas([]);
+        setProcessedImage(null);
         setError(null);
         
         // Reset adjustments
@@ -89,6 +89,28 @@ function App() {
     ];
     
     return mockNailAreas;
+  };
+  
+  // Process the image
+  const processImage = async () => {
+    if (!originalImage) return;
+
+    setIsProcessing(true);
+    try {
+      const response = await axios.post('/process', {
+        image: originalImage,
+        color: selectedColor,
+      }, {
+        responseType: 'blob',
+      });
+
+      const url = URL.createObjectURL(response.data);
+      setProcessedImage(url);
+    } catch (err) {
+      setError('Error processing the image');
+    } finally {
+      setIsProcessing(false);
+    }
   };
   
   // Apply nail color
@@ -323,6 +345,15 @@ function App() {
     });
   };
 
+  // Save the processed image
+  const saveImage = () => {
+    if (!processedImage) return;
+    const link = document.createElement('a');
+    link.href = processedImage;
+    link.download = 'processed-image.png';
+    link.click();
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-100 flex flex-col items-center">
       <header className="bg-white shadow-md py-4 w-full">
@@ -405,6 +436,10 @@ function App() {
           <button onClick={resetAdjustments} className="mt-4 bg-blue-500 text-white p-2 rounded">
             Reset Adjustments
           </button>
+
+          <button onClick={processImage} className="mt-4 bg-blue-500 text-white p-2 rounded">
+            Process Image
+          </button>
         </div>
         
         <div className="w-full md:w-1/2 p-4">
@@ -413,12 +448,16 @@ function App() {
             {isProcessing ? (
               <p className="text-gray-500">Processing...</p>
             ) : processedImage ? (
-              <img src={processedImage} alt="Processed" className="max-h-full max-w-full" />
+              <>
+                <img src={processedImage} alt="Processed" className="max-h-full max-w-full" />
+                <button onClick={saveImage} className="mt-4 bg-green-500 text-white p-2 rounded">
+                  Save Image
+                </button>
+              </>
             ) : (
               <p className="text-gray-500">Upload an image to see the preview</p>
             )}
           </div>
-          <ImageProcessor />
         </div>
       </div>
       
