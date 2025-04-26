@@ -1,22 +1,20 @@
-# AI Nail Color Visualizer
-
-## Overview
+ AI Nail Color Visualizer
+ Overview
 The AI Nail Color Visualizer is a web application that allows users to upload an image of their hand and visualize different nail colors. Users can select colors, adjust brightness and opacity, and see a preview of the changes in real-time.
-
-## Features
+Features
 - Upload images in PNG or JPEG format.
 - Choose nail colors from a palette or enter custom hex codes.
 - Adjust brightness and opacity of the nail color.
 - Visualize the applied nail color on the uploaded image.
 - Reset adjustments to default values.
 
-## Technologies Used
-- **React**: A JavaScript library for building user interfaces.
-- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
-- **Canvas API**: For rendering the image and applying color adjustments.
-- **Lucide React**: For icons used in the application.
+ Technologies Used
+- React: A JavaScript library for building user interfaces.
+- **TypeScript A typed superset of JavaScript that compiles to plain JavaScript.
+- Canvas API**: For rendering the image and applying color adjustments.
+- Lucide React: For icons used in the application.
 
-## Installation
+ Installation
 1. Clone the repository:
    ```bash
    git clone <repository-url>
@@ -33,15 +31,13 @@ The AI Nail Color Visualizer is a web application that allows users to upload an
    npm run dev
    ```
 
-## Usage
+ Usage
 1. Upload an image of your hand using the upload button.
 2. Select a nail color from the color palette or enter a custom hex code.
 3. Adjust the brightness and opacity sliders to see the changes.
 4. Click the "Reset Adjustments" button to revert to default settings.
 5. View the processed image with the applied nail color.
 
-## Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or features you'd like to add.
+Contributing
+Contributions are welcome Please open an issue or submit a pull request for any improvements or features you'd like to add.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
